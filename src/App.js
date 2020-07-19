@@ -32,12 +32,6 @@ const getInitialBoard = () => {
   board[x1][y1] = 2
   board[x2][y2] = 2
 
-  return [
-    [2, 2, 2, 2],
-    [0, 2, 0, 0],
-    [0, 0, 2, 0],
-    [0, 2, 0, 2],
-  ]
   return board
 }
 
