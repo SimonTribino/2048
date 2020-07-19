@@ -2,9 +2,9 @@ import React from 'react'
 
 export default function BestScore(props) {
   return (
-    <div>
-      <label htmlFor="">BestScore</label>
-      {props.bestScore}
+    <div className="score flex-container flex-column">
+      <label>BEST</label>
+      <span className="score-value">{props.bestScore}</span>
     </div>
   )
 }
