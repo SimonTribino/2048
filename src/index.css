@@ -11,3 +11,53 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  /* Colors: */
+  --main-color: #776e65;
+  --secondary-color: #bbada0;
+  --contrast-color: #ffffff;
+  --box-color: white;
+
+  /* Font-Sizes */
+  --small-font: 16px;
+  --normal-font: 25px;
+  --big-font: 54px;
+
+  /* Border-Radius */
+  --round-corner: 5px;
+}
+
+.container {
+  width: 50vw;
+  margin: 40px auto;
+}
+
+.secondary-btn {
+  background-color: var(--main-color);
+  border: none;
+  padding: 10px;
+  font-size: 1.1em;
+  border-radius: var(--round-corner);
+  color: var(--contrast-color);
+  cursor: pointer;
+}
+
+.secondary-btn:hover {
+  opacity: 0.9;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
+}
