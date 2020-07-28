@@ -69,6 +69,52 @@ const addRandom = (board) => {
   return [firstCoordinate, secondCoordinate]
 }
 
+const getCssCustomProperty = (property) => {
+  const styles = getComputedStyle(document.documentElement)
+  return styles.getPropertyValue(property)
+}
+
+const hexToRgb = (hex) => {
+  hex = hex.trim()
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  const red = parseInt(result[1], 16)
+  const green = parseInt(result[2], 16)
+  const blue = parseInt(result[3], 16)
+  return `rgb(${red},${green},${blue})`
+}
+
+const interpolateColor = (initialColor, finalColor, factor = 0.5) => {
+  var result = []
+  initialColor.forEach((value, i) => {
+    result.push(
+      Math.round(initialColor[i] + factor * (finalColor[i] - initialColor[i]))
+    )
+  })
+  return `rgb(${result.join(',')})`
+}
+
+const getinterpolatedColors = (initialColor, finalColor, steps) => {
+  const stepFactor = 1 / (steps - 1)
+  const initialColorRgbArray = initialColor.match(/\d+/g).map(Number)
+  const finalColorRgbArray = finalColor.match(/\d+/g).map(Number)
+  const result = []
+  for (var i = 0; i < steps; i++) {
+    let newColor = interpolateColor(
+      initialColorRgbArray,
+      finalColorRgbArray,
+      stepFactor * i
+    )
+    result.push(newColor)
+  }
+  return result
+}
+
+const getBoxsColors = () => {
+  const initialColor = hexToRgb(getCssCustomProperty('--initial-box-color'))
+  const finalColor = hexToRgb(getCssCustomProperty('--final-box-color'))
+  return getinterpolatedColors(initialColor, finalColor, 17)
+}
+
 export {
   transpose,
   moveRight,
@@ -79,4 +125,9 @@ export {
   addRandom,
   getRandomNumber,
   getRandomCoordinates,
+  getCssCustomProperty,
+  hexToRgb,
+  interpolateColor,
+  getinterpolatedColors,
+  getBoxsColors,
 }

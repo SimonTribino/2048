@@ -37,7 +37,7 @@ export default function Board({ board, onMove }) {
   useKeyPress(handleKeyPress)
 
   return (
-    <div className="grid-container">
+    <div className="board">
       {board.map((row) =>
         row.map((box, index) => <Box key={index} value={box}></Box>)
       )}

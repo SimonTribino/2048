@@ -43,7 +43,7 @@ function App() {
   }
 
   return (
-    <div className="container">
+    <div className="main-container">
       <Header onResetGame={handleResetGame}>
         <Score score={score}></Score>
         <BestScore bestScore={bestScore}></BestScore>
