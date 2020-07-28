@@ -2,9 +2,9 @@ import React from 'react'
 
 export default function Score(props) {
   return (
-    <div className="score flex-container flex-column">
+    <div className="header--score">
       <label>SCORE</label>
-      <span className="score-value">{props.score}</span>
+      <span>{props.score}</span>
     </div>
   )
 }
