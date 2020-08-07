@@ -3,16 +3,17 @@
 :root {
   /* Colors */
   --main-color: #e76f51;
-  --secondary-color: #8c8a93;
+  --secondary-color: #9b8773;
   --tertiary-color: #f4a261;
-  --initial-box-color: #e9c46a;
-  --final-box-color: #264653;
+
+  --initial-box-color: #eee4da;
+  --final-box-color: #ffd700;
+  --empty-box-color: #bbada0;
+
   --contrast-color: #ffffff;
 
   /* Font-Sizes */
-  --small-font: 16px;
   --normal-font: 18px;
-  --big-font: 80px;
 
   /* Border-Radius */
   --round-corner: 5px;

@@ -41,32 +41,37 @@ const moveDown = (board) => transpose(transpose(board).reduce(mergeRight, []))
 
 const getRandomNumber = (max) => Math.floor(Math.random() * Math.floor(max))
 
-const getRandomNumberFromArray = (array) =>
-  array[Math.floor(Math.random() * Math.floor(array.lenght))]
+const getRandomPosition = (array) => array[getRandomNumber(array.length)]
 
-const getRandomCoordinates = () => {
-  const x = getRandomNumber(4)
-  let y = getRandomNumber(4)
-  while (x === y) {
-    y = getRandomNumber(4)
+const getRandomWeightedPosition = (array, weights) => {
+  const r = Math.random()
+  let acc = 0
+
+  const finder = (_, idx) => {
+    acc += weights[idx]
+    return r <= acc
   }
-  return [x, y]
+
+  const value = array.find(finder)
+
+  return value
 }
 
 const getEmptyCoordinates = (board) => {
-  const coordinates = (rows, x) => {
-    return rows.map((_, y) => ({ x, y })).filter((_, y) => !rows[x][y])
-  }
-  return board.flatMap(coordinates)
+  const cordinates = board
+    .flatMap((rows, x) => {
+      return rows.map((_, y) => ({ x, y }))
+    })
+    .filter(({ x, y }) => !board[x][y])
+
+  return cordinates
 }
 
 const addRandom = (board) => {
-  const firstCoordinate = getRandomNumberFromArray(getEmptyCoordinates(board))
-  let secondCoordinate = getRandomNumberFromArray(getEmptyCoordinates(board))
-  while (firstCoordinate === secondCoordinate) {
-    secondCoordinate = getRandomNumberFromArray(getEmptyCoordinates(board))
-  }
-  return [firstCoordinate, secondCoordinate]
+  const { x, y } = getRandomPosition(getEmptyCoordinates(board))
+  const value = getRandomWeightedPosition([2, 4], [0.9, 0.1])
+  board[x][y] = value
+  return board
 }
 
 const getCssCustomProperty = (property) => {
@@ -124,7 +129,6 @@ export {
   sumRow,
   addRandom,
   getRandomNumber,
-  getRandomCoordinates,
   getCssCustomProperty,
   hexToRgb,
   interpolateColor,
