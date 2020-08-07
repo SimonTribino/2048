@@ -20,13 +20,13 @@ export default function Board({ board, onMove }) {
         onMove(addRandom(moveDown(board)))
         break
       case 'ArrowUp':
-        onMove(moveUp(board))
+        onMove(addRandom(moveUp(board)))
         break
       case 'ArrowRight':
-        onMove(moveRight(board))
+        onMove(addRandom(moveRight(board)))
         break
       case 'ArrowLeft':
-        onMove(moveLeft(board))
+        onMove(addRandom(moveLeft(board)))
         break
 
       default:

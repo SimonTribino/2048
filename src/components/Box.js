@@ -1,12 +1,16 @@
 import React from 'react'
 
-import { getBoxsColors } from '../utils/board.utils'
+import {
+  getBoxsColors,
+  getCssCustomProperty,
+  hexToRgb,
+} from '../utils/board.utils'
 
 const colors = getBoxsColors()
 
 const getRgbColor = (value) => {
   if (!value) {
-    return 'white'
+    return hexToRgb(getCssCustomProperty('--empty-box-color'))
   }
   return colors[Math.log2(value)]
 }
@@ -19,7 +23,7 @@ export default function Box(props) {
       }}
       className={'board--box'}
     >
-      {props.value}
+      {props.value ? props.value : ''}
     </div>
   )
 }

@@ -2,25 +2,20 @@ import './App.css'
 
 import React, { useState } from 'react'
 
-import { getRandomCoordinates } from './utils/board.utils'
+import { addRandom } from './utils/board.utils'
 import Header from './components/Header'
 import Score from './components/Score'
 import BestScore from './components/BestScore'
 import Board from './components/board/Board'
 
 const getInitialBoard = () => {
-  const [x1, y1] = getRandomCoordinates()
-  const [x2, y2] = getRandomCoordinates()
-
-  const board = [
+  let board = [
     new Array(4).fill(0),
     new Array(4).fill(0),
     new Array(4).fill(0),
     new Array(4).fill(0),
   ]
-
-  board[x1][y1] = 2
-  board[x2][y2] = 2
+  board = addRandom(addRandom(board))
 
   return board
 }

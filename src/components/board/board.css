@@ -3,18 +3,35 @@
   display: grid;
   align-items: center;
   justify-content: center;
-  grid: repeat(4, 1fr) / repeat(4, 1fr);
-  margin-top: 30px;
+  grid: repeat(4, minmax(60px, 7vw)) / repeat(4, minmax(60px, 7vw));
+  margin: 30px auto 0px auto;
   background-color: var(--secondary-color);
   gap: 10px;
   border: 10px solid var(--secondary-color);
   border-radius: var(--round-corner);
-  font-size: var(--big-font);
+  font-size: var(--normal-font);
+  width: fit-content;
 }
 
 .board--box {
-  text-align: center;
   border-radius: var(--round-corner);
-  font-size: 0.8em;
+  font-size: 4em;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--contrast-color);
+}
+
+@media only screen and (max-width: 1200px) {
+  .board--box {
+    font-size: 3em;
+  }
+}
+
+@media only screen and (max-width: 769px) {
+  .board--box {
+    font-size: 2em;
+  }
 }
