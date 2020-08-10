@@ -1,15 +1,17 @@
 const sumRow = (row) => {
   const result = []
+  let score = 0
   for (let y = 0; y < row.length; y++) {
     if (row[y] === row[y + 1]) {
       const newBox = row[y] + row[y + 1]
       y++
       result.push(newBox)
+      score += newBox
     } else {
       result.push(row[y])
     }
   }
-  return result
+  return { result, score }
 }
 
 const transpose = (matrix) => {
@@ -17,27 +19,70 @@ const transpose = (matrix) => {
   return row.map((_, column) => matrix.map((row) => row[column]))
 }
 
-const mergeRight = (acc, row) => {
+const mergeRight = (row) => {
   const filteredRow = row.filter((box) => box > 0).reverse()
-  const result = sumRow(filteredRow)
-  const newBoard = [
+  const { result, score } = sumRow(filteredRow)
+  const nextRow = [
     ...new Array(row.length - result.length).fill(0),
     ...result.reverse(),
   ]
-  return [...acc, newBoard]
+  return { nextRow, score }
 }
 
-const mergeLeft = (acc, row) => {
+const mergeLeft = (row) => {
   const filteredRow = row.filter((box) => box > 0)
-  const result = sumRow(filteredRow)
-  const newBoard = [...result, ...new Array(row.length - result.length).fill(0)]
-  return [...acc, newBoard]
+  const { result, score } = sumRow(filteredRow)
+  const nextRow = [...result, ...new Array(row.length - result.length).fill(0)]
+  return { nextRow, score }
 }
 
-const moveRight = (board) => board.reduce(mergeRight, [])
-const moveLeft = (board) => board.reduce(mergeLeft, [])
-const moveUp = (board) => transpose(transpose(board).reduce(mergeLeft, []))
-const moveDown = (board) => transpose(transpose(board).reduce(mergeRight, []))
+const moveRight = (board) => {
+  let scoreAcc = 0
+  const movedBoard = board.map((row) => {
+    const { nextRow, score } = mergeRight(row)
+    scoreAcc += score
+    return nextRow
+  })
+  const nextBoard = addRandom(movedBoard)
+  return { nextBoard, scoreAcc }
+}
+
+const moveLeft = (board) => {
+  let scoreAcc = 0
+  const movedBoard = board.map((row) => {
+    const { nextRow, score } = mergeLeft(row)
+    scoreAcc += score
+    return nextRow
+  })
+  const nextBoard = addRandom(movedBoard)
+  return { nextBoard, scoreAcc }
+}
+
+const moveUp = (board) => {
+  let scoreAcc = 0
+  const transposedBoard = transpose(board)
+  const movedTransposedBoard = transposedBoard.map((row) => {
+    const { nextRow, score } = mergeLeft(row)
+    scoreAcc += score
+    return nextRow
+  })
+  const movedBoard = transpose(movedTransposedBoard)
+  const nextBoard = addRandom(movedBoard)
+  return { nextBoard, scoreAcc }
+}
+
+const moveDown = (board) => {
+  let scoreAcc = 0
+  const transposedBoard = transpose(board)
+  const movedTransposedBoard = transposedBoard.map((row) => {
+    const { nextRow, score } = mergeRight(row)
+    scoreAcc += score
+    return nextRow
+  })
+  const movedBoard = transpose(movedTransposedBoard)
+  const nextBoard = addRandom(movedBoard)
+  return { nextBoard, scoreAcc }
+}
 
 const getRandomNumber = (max) => Math.floor(Math.random() * Math.floor(max))
 

@@ -2,13 +2,7 @@ import './board.css'
 
 import React from 'react'
 
-import {
-  moveLeft,
-  moveRight,
-  moveDown,
-  moveUp,
-  addRandom,
-} from '../../utils/board.utils'
+import { moveLeft, moveRight, moveDown, moveUp } from '../../utils/board.utils'
 import { useKeyPress } from '../../hooks/useKeyPress'
 
 import Box from '../../components/Box'
@@ -17,16 +11,16 @@ export default function Board({ board, onMove }) {
   const handleKeyPress = (key) => {
     switch (key) {
       case 'ArrowDown':
-        onMove(addRandom(moveDown(board)))
+        onMove(moveDown(board))
         break
       case 'ArrowUp':
-        onMove(addRandom(moveUp(board)))
+        onMove(moveUp(board))
         break
       case 'ArrowRight':
-        onMove(addRandom(moveRight(board)))
+        onMove(moveRight(board))
         break
       case 'ArrowLeft':
-        onMove(addRandom(moveLeft(board)))
+        onMove(moveLeft(board))
         break
 
       default:

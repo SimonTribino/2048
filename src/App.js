@@ -30,11 +30,11 @@ function App() {
     setBoard(getInitialBoard())
   }
 
-  const handleMove = (newBoard) => {
-    const newScore = 10
+  const handleMove = ({ nextBoard, scoreAcc }) => {
+    const newScore = score + scoreAcc
     setScore(newScore)
     setBestScore(newScore > bestScore ? newScore : bestScore)
-    setBoard(newBoard)
+    setBoard(nextBoard)
   }
 
   return (
