@@ -38,24 +38,31 @@ const mergeLeft = (row) => {
 
 const moveRight = (board) => {
   let scoreAcc = 0
-  const movedBoard = board.map((row) => {
+  let nextBoard = board.map((row) => {
     const { nextRow, score } = mergeRight(row)
     scoreAcc += score
     return nextRow
   })
-  const nextBoard = addRandom(movedBoard)
-  return { nextBoard, scoreAcc }
+  const canMakeMove = checkNextMove(nextBoard)
+  if (canMakeMove) {
+    nextBoard = addRandom(nextBoard)
+  }
+
+  return { nextBoard, scoreAcc, canMakeMove }
 }
 
 const moveLeft = (board) => {
   let scoreAcc = 0
-  const movedBoard = board.map((row) => {
+  let nextBoard = board.map((row) => {
     const { nextRow, score } = mergeLeft(row)
     scoreAcc += score
     return nextRow
   })
-  const nextBoard = addRandom(movedBoard)
-  return { nextBoard, scoreAcc }
+  const canMakeMove = checkNextMove(nextBoard)
+  if (canMakeMove) {
+    nextBoard = addRandom(nextBoard)
+  }
+  return { nextBoard, scoreAcc, canMakeMove }
 }
 
 const moveUp = (board) => {
@@ -66,9 +73,12 @@ const moveUp = (board) => {
     scoreAcc += score
     return nextRow
   })
-  const movedBoard = transpose(movedTransposedBoard)
-  const nextBoard = addRandom(movedBoard)
-  return { nextBoard, scoreAcc }
+  let nextBoard = transpose(movedTransposedBoard)
+  const canMakeMove = checkNextMove(nextBoard)
+  if (canMakeMove) {
+    nextBoard = addRandom(nextBoard)
+  }
+  return { nextBoard, scoreAcc, canMakeMove }
 }
 
 const moveDown = (board) => {
@@ -79,9 +89,12 @@ const moveDown = (board) => {
     scoreAcc += score
     return nextRow
   })
-  const movedBoard = transpose(movedTransposedBoard)
-  const nextBoard = addRandom(movedBoard)
-  return { nextBoard, scoreAcc }
+  let nextBoard = transpose(movedTransposedBoard)
+  const canMakeMove = checkNextMove(nextBoard)
+  if (canMakeMove) {
+    nextBoard = addRandom(nextBoard)
+  }
+  return { nextBoard, scoreAcc, canMakeMove }
 }
 
 const getRandomNumber = (max) => Math.floor(Math.random() * Math.floor(max))
@@ -165,6 +178,40 @@ const getBoxsColors = () => {
   return getinterpolatedColors(initialColor, finalColor, 17)
 }
 
+const ceroTester = (row) => {
+  return row.some((box) => box === 0)
+}
+
+const consecutiveTester = (row, x) => {
+  return row.some((_, idx) => row[idx] === row[idx + 1])
+}
+
+const winTester = (row) => {
+  return row.some((box) => box === 131072)
+}
+
+const checkNextMove = (board) => {
+  const emptySpace = board.some(ceroTester)
+  if (emptySpace) {
+    return true
+  }
+
+  const canMakeHorizontalMove = board.some(consecutiveTester)
+  if (canMakeHorizontalMove) {
+    return true
+  }
+
+  const transposedBoard = transpose(board)
+  const canMakeVerticalMove = transposedBoard.some(consecutiveTester)
+  if (canMakeVerticalMove) {
+    return true
+  }
+
+  return false
+}
+
+const isAWin = (board) => board.some(winTester)
+
 export {
   transpose,
   moveRight,
@@ -179,4 +226,6 @@ export {
   interpolateColor,
   getinterpolatedColors,
   getBoxsColors,
+  checkNextMove,
+  isAWin,
 }

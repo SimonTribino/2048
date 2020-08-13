@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function NewGame(props) {
+export default function NewGame({ onResetGame, className }) {
   return (
-    <button className="header--new_game" onClick={props.onResetGame}>
+    <button className={className} onClick={onResetGame}>
       New Game
     </button>
   )

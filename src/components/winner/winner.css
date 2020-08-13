@@ -1,0 +1,49 @@
+.winner {
+  font-size: var(--normal-font);
+}
+
+.winner--dimmer {
+  background-color: var(--initial-box-color);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  opacity: 0.7;
+  top: 0px;
+  right: 0px;
+}
+
+.winner--card {
+  background-color: transparent;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.winner--title {
+  font-size: 3em;
+  color: var(--main-color);
+}
+
+.winner--new_game {
+  font-size: 1.5em;
+  text-align: center;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--round-corner);
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+  font-weight: bold;
+  background-color: var(--main-color);
+  color: var(--contrast-color);
+}
+
+.winner--new_game:hover {
+  opacity: 1;
+}
